@@ -31,8 +31,8 @@ class SearchResult: Codable, CustomStringConvertible {
     var bookGenre: [String]?
     
     enum CodingKeys: String, CodingKey {
-        case imageSmall = "artworkURL60"
-        case imageLarge = "artworkURL100"
+        case imageSmall = "artworkUrl60"
+        case imageLarge = "artworkUrl100"
         case itemGenre = "primaryGenreName"
         case bookGenre = "genres"
         case itemPrice = "price"
