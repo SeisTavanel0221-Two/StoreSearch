@@ -57,6 +57,7 @@ class SearchViewController: UIViewController {
         
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let urlString = "https://itunes.apple.com/search?" + "term=\(encodedText)&country=US&limit=50&entity=\(kind)"
+        print ("url: \(urlString)")
         let url = URL(string: urlString)
         return url!
     }
@@ -113,16 +114,19 @@ extension SearchViewController: UISearchBarDelegate {
                         self.searchResults = self.parse(data: data)
                         self.searchResults.sort(by: <)
                         DispatchQueue.main.async {
-                            self.hasSearched = false
                             self.isLoading = false
                             self.tableView.reloadData()
-                            self.showNetworkError()
                         }
                         return
                     }
                 }
                 else {
-                    print("Failure! \(response!)")
+                    DispatchQueue.main.async {
+                        self.hasSearched = false
+                        self.isLoading = false
+                        self.tableView.reloadData()
+                        self.showNetworkError()
+                    }
                 }
             }
             dataTask?.resume()
